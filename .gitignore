@@ -61,3 +61,6 @@ Thumbs.db
 *.pid
 instance/
 .webassets-cache
+
+#alembic 
+src/alembic/versions/*
