@@ -4,7 +4,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 from sqlalchemy.dialects.postgresql import ENUM
 
 from src.core.db import DBBaseModel
-from src.app.models import OperatorSource, Contract
 
 
 class OperatorActive(Enum):
@@ -15,8 +14,8 @@ class OperatorActive(Enum):
 class Operator(DBBaseModel):
     is_active: Mapped[bool] = mapped_column(ENUM(OperatorActive))
     max_load: Mapped[int]
-    sources: Mapped[list["OperatorSource"]] = relationship(back_populates="operator")
-    contracts: Mapped[list["Contract"]] = relationship(back_populates="operator")
+    sources: Mapped[list["OperatorSource"]] = relationship(back_populates="operator") # noqa: F821
+    contracts: Mapped[list["Contract"]] = relationship(back_populates="operator") # noqa: F821
 
     @validates("max_load")
     def validate_max_load(self, key, value):

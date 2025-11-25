@@ -14,13 +14,12 @@ class AppConfig(BaseModel):
 
 
 class DBConfig(BaseModel):
-    host: str = "localhost"
     db_name: str = "appeal-handler"
     echo: bool = False
 
     @property
     def get_db_url(self):
-        return f"sqlite:///{ROOT_DIR}/{self.db_name}"
+        return f"sqlite:///{ROOT_DIR}/{self.db_name}.sqlite3"
 
 
 class Settings(BaseSettings):
