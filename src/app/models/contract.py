@@ -14,3 +14,4 @@ class Contract(DBBaseModel):
 
     source: Mapped["Source"] = relationship(back_populates="contracts")
     operator: Mapped["Operator"] = relationship(back_populates="contracts")
+    lead: Mapped["Lead"] = relationship(back_populates="contracts")

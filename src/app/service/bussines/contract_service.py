@@ -23,7 +23,7 @@ class ContractService(BaseService[ContractRepository]):
         if not operator:
             return None
         
-        # создаем контракт
+        # # создаем контракт
         data_contract = CreateContractSchema(
             lead_id=lead.id,
             source_id=data.source_id,

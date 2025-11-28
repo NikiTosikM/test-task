@@ -57,12 +57,15 @@ class BaseRepository(Generic[Model, DataMapper]):
 
         return [self.data_mapper.map_to_domain_entity(**model) for model in models]
     
-    def get_object(self, **filters) -> list[Schema]:
+    def get_object(self, **filters) -> Schema | None:
         ''' Поиск записи по фильтру '''
         
         query = select(self.model).filter_by(**filters)
         result: Result = self._session.execute(query)
-        model: Model = result.scalar_one()
+        model: Model = result.scalar_one_or_none()
+        
+        if not model:
+            return None
         
         return self.data_mapper.map_to_domain_entity(model)
 
