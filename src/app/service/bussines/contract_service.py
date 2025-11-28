@@ -14,7 +14,7 @@ class ContractService(BaseService[ContractRepository]):
         
         # ищем оператора или создаем его
         lead_service = LeadService(session=self._repository._session) 
-        lead: Lead = lead_service.get_or_create_lead(email=data.lead_id)
+        lead: Lead = lead_service.get_or_create_lead(email=data.email)
         
         # выбираем оператора
         operator_service = OperatorService(session=self._repository._session)

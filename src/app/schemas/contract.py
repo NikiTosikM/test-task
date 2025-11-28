@@ -7,9 +7,8 @@ from pydantic import BaseModel, Field, EmailStr
 class ContractSchema(BaseModel):
     ''' Схема обращения/контракта '''
     
-    lead_id: EmailStr = Field(100)
-    source_id: UUID = Field(100)
-    
+    email: EmailStr
+    source_id: UUID
     
 class CreateContractSchema(BaseModel):
     ''' Схема для создания контракта '''

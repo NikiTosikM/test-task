@@ -6,7 +6,7 @@ from src.app.api.dependencies import GetSessionDep
 from src.app.service.bussines.contract_service import ContractService
 
 
-router = APIRouter(prefix="contract", tags=["Контракт/обращение"], default_response_class=ORJSONResponse)
+router = APIRouter(prefix="/contract", tags=["Контракт/обращение"], default_response_class=ORJSONResponse)
 
 
 @router.post(
