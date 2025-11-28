@@ -1,19 +1,20 @@
 from enum import Enum
 
-from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
-from sqlalchemy.dialects.postgresql import ENUM
+from sqlalchemy.orm import Mapped, relationship, validates
 
 from src.core.db import DBBaseModel
 
 
-class OperatorActive(Enum):
-    NOT_ACTIVE = "not_active"
+class OperatorActive(str, Enum):
+    NOT_ACTIVE = "not active"
     ACTIVE = "active"
 
 
 class Operator(DBBaseModel):
-    is_active: Mapped[bool] = mapped_column(ENUM(OperatorActive))
+    name: Mapped[str]
+    is_active: Mapped[str]
     max_load: Mapped[int]
+    
     sources: Mapped[list["OperatorSource"]] = relationship(back_populates="operator") # noqa: F821
     contracts: Mapped[list["Contract"]] = relationship(back_populates="operator") # noqa: F821
 

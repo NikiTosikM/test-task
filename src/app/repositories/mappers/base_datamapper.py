@@ -1,4 +1,4 @@
-from src.repositories.base_repository import Model, Schema
+from src.app.repositories.base_repository import Model, Schema
 
 
 class BaseDataMapper:
@@ -11,6 +11,6 @@ class BaseDataMapper:
         return cls.schema.model_validate(data)
 
     @classmethod
-    def map_to_persistence_entity(cls, data: Schema) -> Model:
-        ''' Сериализация схемы в объект модели '''
-        return cls.model(**data.model_dump())
+    def map_to_persistence_entity(cls, data: Schema, exclude_unset: bool = False) -> dict:
+        ''' Сериализация схемы в словарь '''
+        return data.model_dump(exclude_unset=exclude_unset)

@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-from typing import ContextManager
+from typing import Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
@@ -17,15 +17,17 @@ class DBCore:
         bind=_async_engine
     )
     
+    @classmethod
     @contextmanager
-    def get_session(self) -> ContextManager[Session, None]:
+    def get_session(cls) -> Generator[Session, None, None]:
         try:
-            session: Session = self._db_sessionmaker()
+            session: Session = cls._db_sessionmaker()
             
             yield session
             
             session.commit()
-        except Exception:
+        except Exception as error:
             session.rollback()
+            raise error
         finally:
             session.close()
