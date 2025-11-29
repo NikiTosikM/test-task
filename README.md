@@ -3,14 +3,14 @@
 2) В корневой директории создаем файл .env <br>
 Пример .env файла: <br>
 ```
-APP__HOST = 0.0.0.0
-APP__PORT = 8000
-APP__RELOAD = True
+APP__HOST=0.0.0.0
+APP__PORT=8000
+APP__RELOAD=True
 
-DB__DB_NAME = db_name
-DB_ECHO = True
+DB__DB_NAME=db_name
+DB_ECHO=True
 
-MODE = LOCAL
+MODE=LOCAL
 ```
 
 ## Запуск проекта
