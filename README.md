@@ -1,5 +1,5 @@
 ## Подготовка к запуску 
-1) Клонируем github репозиорий командой: https://github.com/NikiTosikM/test-task.git
+1) Клонируем github репозиорий командой: git clone https://github.com/NikiTosikM/test-task.git
 2) В корневой директории создаем файл .env <br>
 Пример .env файла: <br>
 ```
