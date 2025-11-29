@@ -1,0 +1,23 @@
+# Env files
+.env
+.env.*
+
+
+# Enviroment
+.venv
+venv/
+
+
+# Database
+*.sqlite3
+
+# Documentation
+README.md
+
+
+#gitignore
+.gitignore
+
+
+# Python cache
+__pycache__/
