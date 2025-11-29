@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from fastapi import APIRouter, status
 from fastapi.responses import ORJSONResponse
 
@@ -20,6 +22,6 @@ def create_contract(
 ):
     contract_service = ContractService(session=session)
     
-    contract_service.create_contract(data=data_contract)
+    contract = contract_service.create_contract(data=data_contract)
     
-    return {"status": "ok"}
+    return {"status": "ok", "contract": contract}

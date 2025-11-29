@@ -14,8 +14,13 @@ from src.app.repositories.repositories import OperatorRepository, OperatorSource
 class OperatorService(BaseService[OperatorRepository]):
     repository_class = OperatorRepository
 
-    def create_operator(self, data: OperatorSchema) -> None:
-        self._repository.add(data)
+    def get_all(self) -> list[Operator]:
+        return self._repository.get_all()
+
+    def create_operator(self, data: OperatorSchema) -> UUID:
+        operator_id: UUID = self._repository.add(data)
+        
+        return operator_id
 
     def update(
         self,

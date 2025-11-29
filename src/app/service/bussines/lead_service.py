@@ -10,25 +10,26 @@ from src.app.models import Lead
 class LeadService(BaseService[LeadRepository]):
     repository_class = LeadRepository
 
-    def create_lead(self, data: LeadSchema) -> None:
-        self._repository.add(data)
+    def create_lead(self, data: LeadSchema) -> UUID:
+        lead_id: UUID = self._repository.add(data)
+        
+        return lead_id
 
-    def search_lead(self, email: str) -> Lead | bool:
+    def search_lead(self, email: str) -> Lead | None:
         """Поиск оператора по email"""
 
         lead: Lead | None = self._repository.get_object(email=email)
 
-        if not lead:
-            return False
-
         return lead
 
     def get_or_create_lead(self, email: str) -> Lead:
-        lead: Lead | bool = self.search_lead(email)
+        lead: Lead | None = self.search_lead(email)
 
         if not lead:
             data_lead = LeadSchema(email=email)
-            self._repository.add(data=data_lead)
+            created_lead = self._repository.add(data=data_lead)
+            
+            return created_lead
 
         return lead
 

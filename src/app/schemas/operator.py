@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from src.app.models.operator import OperatorActive
 
@@ -11,6 +11,7 @@ class OperatorSchema(BaseModel):
     name: str = Field(max_length=50)
     is_active: OperatorActive
     max_load: int = Field(gt=0)
+    model_config = ConfigDict(from_attributes=True)
 
 
 class OperatorFullUpdateSchema(BaseModel):
@@ -30,5 +31,5 @@ class OperatorPartialUpdateSchema(BaseModel):
     
 
 class OperatorWeightSchema(BaseModel):
-    id: UUID = Field(description="id оператора, с которым хотим связать")
+    lead_id: UUID = Field(description="id оператора, с которым хотим связать")
     weight: int = Field(le=100)

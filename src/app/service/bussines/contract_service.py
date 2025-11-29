@@ -1,9 +1,12 @@
+from uuid import UUID
+
 from src.app.models.lead import Lead
 from src.app.service.bussines.operator_service import OperatorService
 from src.app.service.bussines.lead_service import LeadService
 from src.app.service.base_service import BaseService
 from src.app.repositories.repositories import ContractRepository
 from src.app.schemas.contract import CreateContractSchema, ContractSchema
+from src.app.exceptions.operator_exception_handler import OperatorNotFound
 
 
 class ContractService(BaseService[ContractRepository]):
@@ -21,13 +24,15 @@ class ContractService(BaseService[ContractRepository]):
         operator = operator_service.select_available_operator(data.source_id)
         
         if not operator:
-            return None
+            raise OperatorNotFound
         
-        # # создаем контракт
+        # создаем контракт
         data_contract = CreateContractSchema(
             lead_id=lead.id,
             source_id=data.source_id,
             operator_id=operator.id
         )
         
-        self._repository.add(data_contract)
+        contract = self._repository.add(data_contract)
+        
+        return contract

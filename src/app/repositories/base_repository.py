@@ -1,4 +1,5 @@
 from typing import TypeVar, Generic, TYPE_CHECKING
+from uuid import UUID
 
 from sqlalchemy.orm import Session
 from sqlalchemy import select, insert, Result, update, delete
@@ -55,7 +56,7 @@ class BaseRepository(Generic[Model, DataMapper]):
         result: Result = self._session.execute(query)
         models: list[Model] = result.scalars().all()
 
-        return [self.data_mapper.map_to_domain_entity(**model) for model in models]
+        return [self.data_mapper.map_to_domain_entity(model) for model in models]
     
     def get_object(self, **filters) -> Schema | None:
         ''' Поиск записи по фильтру '''

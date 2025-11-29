@@ -18,11 +18,11 @@ router = APIRouter(
     path="/", summary="Создание источника", status_code=status.HTTP_201_CREATED
 )
 def create_source(source_data: SourceSchema, session: GetSessionDep):
-    source_repository = SourceService(session)
+    source_service = SourceService(session)
 
-    source_repository.create_source(data=source_data)
+    source: UUID = source_service.create_source(data=source_data)
 
-    return {"status": "ok"}
+    return {"status": "ok", "source": source}
 
 
 @router.post(
